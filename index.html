@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        * {
+            position: relative;
+            box-sizing: border-box;
+            vertical-align: top;
+        }
+        
+        body {
+            font-family: 微軟正黑體;
+            color: #fff;
+            letter-spacing: 1px;
+            margin: 0px;
+            background-color: #2d313a;
+        }
+        
+        .content {
+            margin: auto;
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .box {
+            border-bottom: solid 1px #3c3c3c;
+            font-weight: 200;
+            padding: 10px;
+        }
+        
+        .box-nowPrice--title {
+            font-size: 32px;
+            background-color: #04bebd;
+            border-radius: 5px;
+        }
+        
+        .box-nowPrice {
+            font-size: 64px;
+            font-weight: 400;
+        }
+        
+        .box-data--title {
+            font-size: 16px;
+        }
+        
+        .box-data {
+            font-size: 32px;
+            display: inline-block;
+            width: 180px;
+        }
+        
+        .box-data--plus {
+            color: #66D666;
+        }
+        
+        .box-data--plus::before {
+            content: '+';
+        }
+        
+        .box-data--minus {
+            color: #d66666;
+        }
+        
+        .box-set {
+            padding: 10px 5px;
+        }
+        
+        .box-set--title {
+            font-size: 20px;
+            font-weight: 300;
+        }
+        
+        .input {
+            font-size: 16px;
+            height: 30px;
+        }
+        
+        .select {
+            font-family: 微軟正黑體;
+            font-weight: 500;
+            color: #2d313a;
+            width: 110px;
+            text-align-last: center;
+            height: 35px;
+            font-size: 16px;
+            background-color: #fff;
+            /*background-color: #04bebd;*/
+            -webkit-appearance: none;
+            border-radius: 0px;
+            border: none;
+            border-image: initial;
+        }
+        
+        .select--arrow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            margin: 16px 0px 0px -25px;
+        }
+        
+        .button {
+            width: 150px;
+            padding: 10px 20px;
+            background-color: #04bebd;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        a {
+            color: #04bebd;
+            text-decoration:none;
+        }
+    </style>
+    <script type="text/javascript" src="push.min.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="box">
+            <div class="box-nowPrice">
+                <div class="box-nowPrice--title">ETH</div>
+                <div class="nowPrice"></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-data">
+                <div class="box-data--title">買入</div>
+                <div class="buyPrice"></div>
+            </div>
+            <div class="box-data">
+                <div class="box-data--title">賣出</div>
+                <div class="salePrice"></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-data">
+                <div class="box-data--title">單位損益</div>
+                <div class="one"></div>
+            </div>
+            <div class="box-data">
+                <div class="box-data--title">整體損益</div>
+                <div class="all"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-set--title">投資紀錄</div>
+            <div class="box-set">買入單價：<input type="number" class="input unitPrice" min="0"></div>
+            <div class="box-set">買入數量：<input type="number" class="input buyQty" min="0"></div>
+        </div>
+        <div class="box">
+            <div class="box-set"><input type="checkbox" class="pushYn">符合下列條件時通知：</div>
+            <select class="select priceType">
+                <option value="raw_price">現價</option>
+                <option value="raw_buy_price">買價</option>
+                <option value="raw_sell_price">賣價</option>                
+            </select>
+            <svg class="select--arrow">
+                <polygon fill="#04bebd" points="8,0 4,8 0,0"></polygon>
+            </svg>
+            <select class="select comparison">
+                <option value=">=">>=</option>
+                <option value="<="><=</option>
+            </select>
+            <svg class="select--arrow">
+                <polygon fill="#04bebd" points="8,0 4,8 0,0"></polygon>
+            </svg>
+            <div class="box-set"><input type="number" class="input setPrice" min="0"></div>
+            <div class="box-set">
+                <div class="button">儲存設定</div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <a href="https://github.com/guahsu/maicoin-eth-listener">- GitHub -</a><br>            
+            <p>↓MY ETH WALLET↓<br>0x3fef6ebafd6d30c8a47a1a64cb2f2d46feec81b0</p>
+            <img src="wallet.png" alt="MY ETH WALLET"><br><br>
+            <a href="https://ssarcandy.tw/eth-chart/">價格來源：SSARCandy的eth-char<br>(有經作者同意使用）</a>
+        </div>
+
+        <script>
+            function setUserData(type) {
+                let userData = {};
+                if (type === 'start' && localStorage.getItem('userData')) {
+                    userData = JSON.parse(localStorage.getItem('userData'));
+                    document.querySelector('.unitPrice').value = userData.unitPrice;
+                    document.querySelector('.buyQty').value = userData.buyQty;
+                    document.querySelector('.pushYn').checked = userData.pushYn;
+                    document.querySelector('.priceType').value = userData.priceType;
+                    document.querySelector('.comparison').value = userData.comparison;
+                    document.querySelector('.setPrice').value = userData.setPrice;
+                } else {
+                    userData = {
+                        unitPrice: document.querySelector('.unitPrice').value || 0,
+                        buyQty: document.querySelector('.buyQty').value || 0,
+                        pushYn: document.querySelector('.pushYn').checked,
+                        priceType: document.querySelector('.priceType').value,
+                        comparison: document.querySelector('.comparison').value,
+                        setPrice: document.querySelector('.setPrice').value || 0,
+                    };
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                }
+                getPrice(userData);
+            }
+
+            function getPrice(userData) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('get', 'https://exwd.csie.org/eth/eth-realtime', true);
+                xhr.send();
+                xhr.onload = function () {
+                    const res = JSON.parse(xhr.responseText);
+                    const priceDatas = [
+                        { className: 'title', price: priceFormat(res.raw_price), priceColor: 'N' },
+                        { className: '.nowPrice', price: priceFormat(res.raw_price), priceColor: 'N' },
+                        { className: '.buyPrice', price: priceFormat(res.raw_buy_price), priceColor: 'N' },
+                        { className: '.salePrice', price: priceFormat(res.raw_sell_price), priceColor: 'N' },
+                        { className: '.one', price: priceFormat(res.raw_sell_price) - userData.unitPrice, priceColor: 'Y' },
+                        { className: '.all', price: (priceFormat(res.raw_sell_price) - userData.unitPrice) * userData.buyQty, priceColor: 'Y' }
+
+                    ];
+
+                    priceDatas.forEach(data => {
+                        data.price = data.price || 0;
+                        if (data.priceColor === 'Y' && data.price < 0) {
+                            document.querySelector(data.className).classList.add('box-data--minus');
+                            document.querySelector(data.className).classList.remove('box-data--plus');
+                        } else if ((data.priceColor === 'Y' && data.price > 0)) {
+                            document.querySelector(data.className).classList.add('box-data--plus');
+                            document.querySelector(data.className).classList.remove('box-data--minus');
+                        }
+                        document.querySelector(data.className).textContent = data.price.toFixed(2);
+                    });
+
+                    if (userData.pushYn === true) {
+                        if (eval(`priceFormat(res.${userData.priceType}) ${userData.comparison} ${userData.setPrice}`)) {
+                            pushPrice(`${userData.priceType} ${userData.comparison} ${userData.setPrice}`);
+                        }
+                    }
+                };
+            }
+
+            function priceFormat(rawPrice) {
+                return Number(rawPrice.toString().slice(0, 4) + '.' + rawPrice.toString().slice(4, 9));
+            }
+
+            function pushPrice(msg) {
+                Push.create('到價通知', {
+                    body: `設定條件已達：[${msg}]`,
+                    timeout: 5000,
+                    icon: 'icon.png',
+                    onClick: function () {
+                        console.log("Fired!");
+                        window.focus();
+                        this.close();
+                    },
+                    vibrate: [200, 100, 200, 100, 200, 100, 200]
+                });
+            }
+
+            const button = document.querySelector('.button');
+            button.addEventListener('click', setUserData);
+
+            setInterval(setUserData, 60000);
+            setUserData('start');
+        </script>
+
+</body>
+
+</html>
