@@ -1,0 +1,114 @@
+/************************************************************
+ * 20170527
+ * GuaHsu(guaswork@gmail.com)
+ * https://github.com/guahsu/Javascript-ETH-Listener
+ ************************************************************/
+* {
+    position: relative;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+body {
+    font-family: 微軟正黑體;
+    color: #fff;
+    letter-spacing: 1px;
+    margin: 0px;
+    background-color: #2d313a;
+}
+
+.content {
+    margin: auto;
+    text-align: center;
+    max-width: 400px;
+}
+
+.box {
+    border-bottom: solid 1px #3c3c3c;
+    font-weight: 200;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.box-nowPrice--title {
+    font-size: 32px;
+    background-color: #04bebd;
+    border-radius: 5px;
+}
+
+.box-nowPrice {
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.box-data--title {
+    font-size: 16px;
+}
+
+.box-data {
+    font-size: 32px;
+    display: inline-block;
+    width: 180px;
+}
+
+.box-data--plus {
+    color: #66D666;
+}
+
+.box-data--plus::before {
+    content: '+';
+}
+
+.box-data--minus {
+    color: #d66666;
+}
+
+.box-set {
+    padding: 10px 5px;
+}
+
+.box-set--title {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.input {
+    font-size: 16px;
+    height: 30px;
+}
+
+.select {
+    font-family: 微軟正黑體;
+    font-weight: 500;
+    color: #2d313a;
+    width: 110px;
+    text-align-last: center;
+    height: 35px;
+    font-size: 16px;
+    background-color: #fff;
+    -webkit-appearance: none;
+    border-radius: 0px;
+    border: none;
+    border-image: initial;
+}
+
+.select--arrow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin: 16px 0px 0px -25px;
+}
+
+.button {
+    width: 150px;
+    padding: 10px 20px;
+    background-color: #04bebd;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+a {
+    color: #04bebd;
+    text-decoration: none;
+}
