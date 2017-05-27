@@ -36,10 +36,9 @@ function setUserData(type) {
 
 /**
  * 取得目前價格及顯示
- * @param {*} userData 使用者資料
  * AJAX取即時價格回來，並塞入陣列物件中
  */
-function getPrice(userData) {
+function getPrice() {
     const xhr = new XMLHttpRequest();
     xhr.open('get', 'https://exwd.csie.org/eth/eth-realtime', true);
     xhr.send();
