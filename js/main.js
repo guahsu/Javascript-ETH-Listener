@@ -51,7 +51,7 @@ function getPrice() {
             { className: '.buyPrice', price: priceFormat(res.raw_buy_price), priceColor: 'N' },
             { className: '.salePrice', price: priceFormat(res.raw_sell_price), priceColor: 'N' },
             { className: '.now-one', price: priceFormat(res.raw_price) - userData.unitPrice, priceColor: 'Y' },
-            { className: '.now-all', price: (priceFormat(res.raw_price) - userData.unitPrice) * userData.buyQty, priceColor: 'Y' }
+            { className: '.now-all', price: (priceFormat(res.raw_price) - userData.unitPrice) * userData.buyQty, priceColor: 'Y' },
             { className: '.maicoin-one', price: priceFormat(res.raw_sell_price) - userData.unitPrice, priceColor: 'Y' },
             { className: '.maicoin-all', price: (priceFormat(res.raw_sell_price) - userData.unitPrice) * userData.buyQty, priceColor: 'Y' }
         ];
