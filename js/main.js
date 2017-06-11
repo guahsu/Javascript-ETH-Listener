@@ -96,6 +96,13 @@ function checkPrice(priceDatas, userData) {
  * 將123456789格式化為1234.56789回傳
  */
 function priceFormat(rawPrice) {
+    if (rawPrice.toString().length === 10) {
+        const form = 4;
+        const to = 9;
+    } else {
+        const form = 5;
+        const to = 10;
+    }
     return Number(rawPrice.toString().slice(0, 4) + '.' + rawPrice.toString().slice(4, 9));
 }
 
