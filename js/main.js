@@ -103,7 +103,7 @@ function priceFormat(rawPrice) {
         const form = 5;
         const to = 10;
     }
-    return Number(rawPrice.toString().slice(0, 4) + '.' + rawPrice.toString().slice(4, 9));
+    return Number(rawPrice.toString().slice(0, form) + '.' + rawPrice.toString().slice(form, to));
 }
 
 /**
