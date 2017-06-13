@@ -26,12 +26,14 @@ function setUserData(type) {
         localStorage.setItem('userData', JSON.stringify(userData));
     }
     //更新輸入欄位資訊
-    Object.keys(userData).forEach(key => {
-        if (key === 'pushYn') {
-            document.querySelector(`.${key}`).checked = userData[key];
+    Object.keys(userData).forEach(
+        function (key) {
+            if (key === 'pushYn') {
+                document.querySelector('.' + key).checked = userData[key];
+            }
+            document.querySelector('.' + key).value = userData[key];
         }
-        document.querySelector(`.${key}`).value = userData[key];
-    });
+    );
     //取得目前價格
     getPrice(userData);
 }
@@ -57,7 +59,7 @@ function getPrice() {
         ];
         //若有設定通知，且符合條件則發送通知
         if (userData.pushYn && checkPrice(priceDatas, userData)) {
-            pushPrice(`現價：${priceDatas[0].price.toFixed(2)}\n買價：${priceDatas[1].price.toFixed(2)}\n賣價：${priceDatas[2].price.toFixed(2)}`);
+            pushPrice('現價：'+ priceDatas[0].price.toFixed(2)+'\n買價：' + priceDatas[1].price.toFixed(2) + '\n賣價：' +priceDatas[2].price.toFixed(2));
         }
 
         showPrice(priceDatas);
@@ -113,21 +115,23 @@ function priceFormat(rawPrice) {
  * @param {*} priceDatas AJAX取回組成的資料
  */
 function showPrice(priceDatas) {
-    priceDatas.forEach(data => {
-        data.price = data.price || 0;
-        //依據損益正負設定對應顏色
-        if (data.priceColor === 'Y' && data.price < 0) {
-            document.querySelector(data.className).classList.add('box-data--minus');
-            document.querySelector(data.className).classList.remove('box-data--plus');
-        } else if ((data.priceColor === 'Y' && data.price > 0)) {
-            document.querySelector(data.className).classList.add('box-data--plus');
-            document.querySelector(data.className).classList.remove('box-data--minus');
+    priceDatas.forEach(
+        function (data) {
+            data.price = data.price || 0;
+            //依據損益正負設定對應顏色
+            if (data.priceColor === 'Y' && data.price < 0) {
+                document.querySelector(data.className).classList.add('box-data--minus');
+                document.querySelector(data.className).classList.remove('box-data--plus');
+            } else if ((data.priceColor === 'Y' && data.price > 0)) {
+                document.querySelector(data.className).classList.add('box-data--plus');
+                document.querySelector(data.className).classList.remove('box-data--minus');
+            }
+            //依據資料顯示對應欄位內容
+            document.querySelector(data.className).textContent = data.price.toFixed(2);
         }
-        //依據資料顯示對應欄位內容
-        document.querySelector(data.className).textContent = data.price.toFixed(2);
-    });
+    );
     //將現價設定到網頁title
-    document.title = `ETH：${priceDatas[0].price.toFixed(0)}`
+    document.title = 'ETH：'+priceDatas[0].price.toFixed(0);
 }
 
 /**
