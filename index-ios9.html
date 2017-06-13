@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<!--************************************************************
+ * 20170527
+ * GuaHsu(guaswork@gmail.com)
+ * https://github.com/guahsu/Javascript-ETH-Listener
+ ************************************************************-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ETH：</title>
+    <script src="js/ga.js"></script>    
+    <script src="js/push.min.js"></script>
+    <link rel="stylesheet" href="css/main.css">    
+</head>
+
+<body>
+    <div class="content">
+        <div class="box">
+            <div class="box-nowPrice">
+                <div class="box-nowPrice--title">ETH</div>
+                <div class="nowPrice"></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-data">
+                <div class="box-data--title">買入</div>
+                <div class="buyPrice"></div>
+            </div>
+            <div class="box-data">
+                <div class="box-data--title">賣出</div>
+                <div class="salePrice"></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-data">
+                <div class="box-data--title">[現價]單位損益</div>
+                <div class="now-one"></div>
+            </div>
+            <div class="box-data">
+                <div class="box-data--title">[現價]整體損益</div>
+                <div class="now-all"></div>
+            </div>
+        </div>        
+        <div class="box">
+            <div class="box-data">
+                <div class="box-data--title">[Maicoin]單位損益</div>
+                <div class="maicoin-one"></div>
+            </div>
+            <div class="box-data">
+                <div class="box-data--title">[Maicoin]整體損益</div>
+                <div class="maicoin-all"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-set--title">投資設定</div>
+            <div class="box-set">平均單價：<input type="number" class="input unitPrice" min="0"></div>
+            <div class="box-set">持有數量：<input type="number" class="input buyQty" min="0"></div>
+        </div>
+        <div class="box">
+            <div class="box-set"><input type="checkbox" class="pushYn">符合下列條件時通知：</div>
+            <select class="select priceType">
+                <option value="現價">現價</option>
+                <option value="買價">買價</option>
+                <option value="賣價">賣價</option>                
+            </select>
+            <svg class="select--arrow">
+                <polygon fill="#04bebd" points="8,0 4,8 0,0"></polygon>
+            </svg>
+            <select class="select comparison">
+                <option value="大於">大於</option>
+                <option value="小於">小於</option>
+            </select>
+            <svg class="select--arrow">
+                <polygon fill="#04bebd" points="8,0 4,8 0,0"></polygon>
+            </svg>
+            <div class="box-set"><input type="number" class="input setPrice" min="0"></div>
+            <div class="box-set">
+                <div class="button">儲存設定</div>
+            </div>
+        </div>
+
+        <div class="box">
+            <a href="https://github.com/guahsu/Javascript-ETH-Listener" target="_blank">- GitHub -</a><br>
+            <p>↓MY ETH WALLET↓<br>0x3fef6ebafd6d30c8a47a1a64cb2f2d46feec81b0</p>
+            <img src="img/wallet.png" alt="MY ETH WALLET"><br><br>
+            <a href="https://ssarcandy.tw/eth-chart/" target="_blank">價格來源：SSARCandy的eth-char<br>(有經作者同意使用）</a>
+        </div>
+
+    <script src="js/main-ios9.js"></script>
+</body>
+
+</html>
